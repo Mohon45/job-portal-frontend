@@ -1,0 +1,66 @@
+body {
+  background-color: #dbe0e0;
+}
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.nav-item {
+  margin-left: 10px;
+}
+
+/* register section design start  */
+.register-box {
+  margin: 0 auto;
+  margin-top: 5rem;
+}
+/* register section design end  */
+
+/* dashboard section design start */
+.bg-color {
+  background-color: #f2f8ff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.nav-link {
+  font-size: 1.5rem;
+}
+
+.dashboard h1 {
+  font-size: 10rem;
+  text-align: center;
+  margin-top: 7rem;
+}
+/* dashboard section design end */
+
+/* jobs section start */
+.custom-card {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.job-btn {
+  text-decoration: none;
+  background-color: #0f6fff;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+}
+.job-btn:hover {
+  color: white;
+}
+/* jobs section end */
+
+/* add job section design start */
+.jobs-post-form-input {
+  width: 500px;
+}
+/* add job section design end */
+
+/* job description section design start */
+.job-desc-section {
+  margin-top: 10rem;
+}
+/* job description section design end */
