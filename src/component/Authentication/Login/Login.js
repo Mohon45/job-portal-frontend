@@ -1,7 +1,28 @@
-import React from "react";
+import { Toast } from "bootstrap";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useAuth from "../../../hooks/useAuth";
+import Loader from "../../../Shared/Loader/Loader";
 
 const Login = () => {
+  const [loginData, setLoginData] = useState({});
+  const { user, loginUser, isLoading, authError } = useAuth();
+
+  const handleOnChange = (e) => {
+    const field = e.target.name;
+    const value = e.target.value;
+    const newLoginData = { ...loginData };
+    newLoginData[field] = value;
+    setLoginData(newLoginData);
+  };
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+
+    loginUser(loginData.email, loginData.password);
+  };
+
   return (
     <div>
       <div
@@ -11,7 +32,7 @@ const Login = () => {
         <div className="card-body">
           <h2 className="text-center fw-bold">Login</h2>
           <div className="w-75 mx-auto mt-5">
-            <form>
+            <form onSubmit={handleLoginSubmit}>
               <div className="mb-3">
                 <label
                   htmlFor="exampleInputEmail1"
@@ -22,6 +43,7 @@ const Login = () => {
                 <input
                   type="email"
                   name="email"
+                  onChange={handleOnChange}
                   placeholder="enter your email id"
                   className="form-control"
                   id="exampleInputEmail1"
@@ -42,12 +64,13 @@ const Login = () => {
                 <input
                   type="password"
                   name="password"
+                  onChange={handleOnChange}
                   placeholder="enter your password"
                   className="form-control"
                   id="exampleInputPassword1"
                 />
               </div>
-              <Link style={{ textDecoration: "none" }} to="/login">
+              <Link style={{ textDecoration: "none" }} to="/">
                 New User? Please Register
               </Link>
               <div className="mb-3 text-center mt-5">
@@ -56,6 +79,8 @@ const Login = () => {
                 </button>
               </div>
             </form>
+            {isLoading && <Loader />}
+            {authError && toast.error("Something wrong!")}
           </div>
         </div>
       </div>

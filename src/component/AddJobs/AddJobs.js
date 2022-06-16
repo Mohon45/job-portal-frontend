@@ -1,8 +1,38 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Navbar from "../../Shared/Navbar/Navbar";
 
 const AddJobs = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const navigate = useNavigate();
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+
+    fetch("http://localhost:5000/jobs", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Job Post Successfull!");
+        navigate("/dashboard/jobs");
+        event.target.reset();
+      });
+  };
+
   return (
     <div>
       <Navbar />
@@ -11,7 +41,7 @@ const AddJobs = () => {
         <div className="card-body p-5">
           <h3 className=" fw-bold">Post a Job</h3>
           <div className="mx-auto mt-5">
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="input-group d-flex justify-content-around mb-4">
                 <div>
                   <label
@@ -22,6 +52,7 @@ const AddJobs = () => {
                   </label>
                   <input
                     type="text"
+                    {...register("companyName")}
                     placeholder="enter company name"
                     className="form-control jobs-post-form-input"
                     id="exampleInputcompanyName"
@@ -38,6 +69,7 @@ const AddJobs = () => {
                   </label>
                   <input
                     type="text"
+                    {...register("companyTitle")}
                     placeholder="enter company title"
                     className="form-control jobs-post-form-input"
                     id="exampleInputCompanyTitle"
@@ -56,6 +88,7 @@ const AddJobs = () => {
                   </label>
                   <input
                     type="date"
+                    {...register("deadline")}
                     className="form-control jobs-post-form-input"
                     id="exampleInputDate"
                     required
@@ -70,6 +103,7 @@ const AddJobs = () => {
                   </label>
                   <input
                     type="number"
+                    {...register("employee")}
                     placeholder="enter employee number"
                     className="form-control jobs-post-form-input"
                     id="exampleInputEmployee"
@@ -87,7 +121,8 @@ const AddJobs = () => {
                     Job Title
                   </label>
                   <input
-                    type="number"
+                    type="text"
+                    {...register("jobTitle")}
                     placeholder="enter job title"
                     className="form-control jobs-post-form-input"
                     id="exampleInputJobTitle"
@@ -103,6 +138,7 @@ const AddJobs = () => {
                     Job Details
                   </label>
                   <textarea
+                    {...register("jobDetails")}
                     className="form-control jobs-post-form-input"
                     id="exampleInputJobDetails"
                     rows="5"

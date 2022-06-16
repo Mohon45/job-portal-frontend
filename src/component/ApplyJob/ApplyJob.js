@@ -1,8 +1,38 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import Navbar from "../../Shared/Navbar/Navbar";
+import { toast } from "react-toastify";
 
 const ApplyJob = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const navigate = useNavigate();
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+
+    fetch("http://localhost:5000/applicants", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Your Application Successfull!");
+        navigate("/dashboard/jobs");
+        event.target.reset();
+      });
+  };
+
   return (
     <div>
       <Navbar />
@@ -11,7 +41,7 @@ const ApplyJob = () => {
         <div className="card-body p-5">
           <h3 className=" fw-bold">Apply</h3>
           <div className="mx-auto mt-5">
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="input-group d-flex justify-content-around mb-4">
                 <div>
                   <label
@@ -22,6 +52,7 @@ const ApplyJob = () => {
                   </label>
                   <input
                     type="text"
+                    {...register("fullName")}
                     placeholder="enter your full name"
                     className="form-control jobs-post-form-input"
                     id="exampleInputFullName"
@@ -38,6 +69,7 @@ const ApplyJob = () => {
                   </label>
                   <input
                     type="email"
+                    {...register("email")}
                     placeholder="enter your email"
                     className="form-control jobs-post-form-input"
                     id="exampleInputEmail"
@@ -56,6 +88,7 @@ const ApplyJob = () => {
                   </label>
                   <input
                     type="text"
+                    {...register("experience")}
                     placeholder="in years"
                     className="form-control jobs-post-form-input"
                     id="exampleInputexperiment"
@@ -71,6 +104,7 @@ const ApplyJob = () => {
                   </label>
                   <input
                     type="text"
+                    {...register("applyPosition")}
                     placeholder="enter a position"
                     className="form-control jobs-post-form-input"
                     id="exampleInputEmployee"
@@ -89,6 +123,7 @@ const ApplyJob = () => {
                   </label>
                   <input
                     type="file"
+                    {...register("resume")}
                     className="form-control jobs-post-form-input"
                     id="exampleInputresume"
                     required
@@ -103,6 +138,7 @@ const ApplyJob = () => {
                     Write Cover Letter
                   </label>
                   <textarea
+                    {...register("coverLetter")}
                     className="form-control jobs-post-form-input"
                     id="exampleInputCoverLetter"
                     rows="5"

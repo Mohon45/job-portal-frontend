@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, company, logout } = useAuth();
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-color">
@@ -23,21 +25,32 @@ const Navbar = () => {
                   Jobs
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/post-jobs">
-                  Post Jobs
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/jobs/applicants">
-                  Applicants
-                </Link>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link" style={{ border: "none" }}>
-                  Log out
-                </button>
-              </li>
+              {company && (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/dashboard/post-jobs">
+                      Post Jobs
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/dashboard/jobs/applicants">
+                      Applicants
+                    </Link>
+                  </li>
+                </>
+              )}
+
+              {user.email ? (
+                <li className="nav-item">
+                  <button
+                    onClick={logout}
+                    className="nav-link"
+                    style={{ border: "none" }}
+                  >
+                    LogOut
+                  </button>
+                </li>
+              ) : null}
             </ul>
           </div>
         </div>

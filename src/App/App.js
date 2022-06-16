@@ -10,21 +10,24 @@ import AddJobs from "../component/AddJobs/AddJobs";
 import JobDetails from "../component/JobDetails/JobDetails";
 import ApplyJob from "../component/ApplyJob/ApplyJob";
 import Applicants from "../component/Applicants/Applicants";
+import AuthProvider from "../contexts/AuthProvider/AuthProvider";
 
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Home />} />
-        <Route path="/dashboard/jobs" element={<Jobs />} />
-        <Route path="/dashboard/post-jobs" element={<AddJobs />} />
-        <Route path="/dashboard/jobs/details/:id" element={<JobDetails />} />
-        <Route path="/dashboard/jobs/apply/:id" element={<ApplyJob />} />
-        <Route path="/dashboard/jobs/applicants" element={<Applicants />} />
-      </Routes>
-      <Notify />
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/dashboard/jobs" element={<Jobs />} />
+          <Route path="/dashboard/post-jobs" element={<AddJobs />} />
+          <Route path="/dashboard/jobs/details/:id" element={<JobDetails />} />
+          <Route path="/dashboard/jobs/apply/:id" element={<ApplyJob />} />
+          <Route path="/dashboard/jobs/applicants" element={<Applicants />} />
+        </Routes>
+        <Notify />
+      </AuthProvider>
     </div>
   );
 }
