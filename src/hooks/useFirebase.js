@@ -89,14 +89,16 @@ const useFirebase = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/users/${user.email}`)
+    fetch(`https://blooming-fortress-96049.herokuapp.com/users/${user.email}`)
       .then((res) => res.json())
       .then((data) => setCompany(data.company));
   }, [user.email]);
 
+  console.log(company);
+
   const saveUser = (userType, email, displayName, method) => {
     const user = { userType, email, displayName };
-    fetch("http://localhost:5000/users", {
+    fetch("https://blooming-fortress-96049.herokuapp.com/users", {
       method: method,
       headers: {
         "content-type": "application/json",

@@ -7,7 +7,7 @@ const Applicants = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/applicants")
+    fetch("https://blooming-fortress-96049.herokuapp.com/applicants")
       .then((res) => res.json())
       .then((data) => {
         setApplicant(data);

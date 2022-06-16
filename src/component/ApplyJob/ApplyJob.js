@@ -18,7 +18,7 @@ const ApplyJob = () => {
   const onSubmit = (data, event) => {
     event.preventDefault();
 
-    fetch("http://localhost:5000/applicants", {
+    fetch("https://blooming-fortress-96049.herokuapp.com/applicants", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -7,7 +7,7 @@ const Jobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:5000/jobs")
+    fetch("https://blooming-fortress-96049.herokuapp.com/jobs")
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);

@@ -10,7 +10,7 @@ const JobDetails = () => {
 
   const { id } = useParams();
   useEffect(() => {
-    fetch(`http://localhost:5000/job/${id}`)
+    fetch(`https://blooming-fortress-96049.herokuapp.com/job/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);
